@@ -1,76 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
+import PropTypes from "prop-types";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import user from "../../assets/images/user/user-1.jpg";
-import background from "../../assets/images/widget-bg-1.png";
 import Sidebar from "../sidebar/Sidebar";
-import { Link } from "react-router-dom";
-import { useGetDonarQuery ,  useGetNotificationQuery,} from "../../services/signUpApi";
+import All from "./all/All";
+import Today from "./today/Today";
+import { useGetDonarQuery,useGetNotificationQuery } from "../../services/signUpApi";
 
-const Layout = () => {
+const Donated = () => {
   const [name,setName]=useState('');
-  const [notification, setNotification] = useState("");
   const [isNotification, setIsNotification] = useState(false);
-  const fields = [
-    { name: "Name", weight: 10 },
-    { name: "Email", weight: 10 },
-    { name: "Phone", weight: 10 },
-    { name: "Address", weight: 15 },
-    { name: "Education", weight: 25 },
-  ];
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [filledFields, setFilledFields] = useState({
-    Name: true,
-    Email: true,
-    Phone: true,
-    Address: false,
-    Education: false,
-  });
+  const [notification, setNotification] = useState("");
 
-  const totalWeight = fields.reduce((acc, field) => acc + field.weight, 0);
-
-  // Calculate the weight of the filled fields
-  const filledWeight = fields.reduce(
-    (acc, field) => (filledFields[field.name] ? acc + field.weight : acc),
-    0
-  );
-
-  // Calculate the percentage of the profile that is completed
-  const percentageComplete = Math.round((filledWeight / totalWeight) * 100);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const [value, setValue] = useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
+ 
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     alert("Student logout successfully!");
   };
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
- const { data,isSuccess}=useGetDonarQuery();
- console.log(data)
- 
- const { data: studentNotification, isSuccess: studentIsSuccess } =
- useGetNotificationQuery();
+  const { data,isSuccess}=useGetDonarQuery();
+  console.log(data)
+  
+  useEffect(()=>{
+   if(data && isSuccess){
+     setName(data.data.name)
+   }
+  })
+
+  const { data: studentNotification, isSuccess: studentIsSuccess } =
+  useGetNotificationQuery();
 
 console.log(studentNotification);
 console.log("data", notification);
 
 useEffect(() => {
- if (studentNotification && studentIsSuccess && studentNotification.data) {
-   setNotification(studentNotification.data);
- }
-}, [studentNotification, studentIsSuccess]);
-
- useEffect(()=>{
-  if(data && isSuccess){
-    setName(data.data.name)
+  if (studentNotification && studentIsSuccess && studentNotification.data) {
+    setNotification(studentNotification.data);
   }
- })
+}, [studentNotification, studentIsSuccess]);
+ 
 
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   return (
     <>
@@ -87,7 +96,7 @@ useEffect(() => {
               <div class="flex justify-between items-center h-full">
                 <div class="flex items-center md:space-x-4 space-x-4 rtl:space-x-reverse vertical-box">
                   <a
-                    href="#"
+                    href="index.html"
                     class="mobile-logo xl:hidden inline-block"
                   >
                     {/* <img
@@ -166,7 +175,9 @@ useEffect(() => {
                   </button>
                 </div>
                 {/* <!-- end horizental --> */}
-                {/* <!-- end top menu --> */}
+
+                
+              
                 <div className="nav-tools flex items-center lg:space-x-5 space-x-3 rtl:space-x-reverse leading-0">
                   {/* <!-- BEGIN: Notification Dropdown --> */}
                   {/* <!-- Notifications Dropdown area --> */}
@@ -215,12 +226,9 @@ useEffect(() => {
                                   <div className="text-slate-600 text-xs leading-4">
                                     {notification.message}
                                   </div>
-                                  <div  className="text-xs font-Inter font-normal underline text-slate-500 dark:text-white">
-                                    {notification.link}
-                                  </div>
-                                  <div className="text-slate-400 dark:text-slate-400 text-xs mt-1">
-                                    {notification.postingTime}
-                                  </div>
+                                  {/* <div className="text-slate-400 dark:text-slate-400 text-xs mt-1">
+                                    {notification.createdAt}
+                                  </div> */}
                                 </div>
                               </div>
                             </div>
@@ -254,9 +262,7 @@ useEffect(() => {
                       <span className="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">
                         {name}
                       </span>
-                      {/* <svg className="w-[16px] h-[16px] dark:text-white  lg:inline-block text-base inline-block ml-[10px] rtl:mr-[10px]" aria-hidden="true" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg> */}
+                     
 
                       <KeyboardArrowDownIcon onClick={toggleDropdown} />
                     </button>
@@ -341,180 +347,51 @@ useEffect(() => {
             <div class="page-content">
               <div id="content_layout">
                 <div>
-                  <div class="flex justify-between flex-wrap items-center mb-6">
-                    <div>
-                      <h4 class="font-medium lg:text-2xl text-xl capitalize text-slate-900 inline-block ltr:pr-4 rtl:pl-4 mb-4 sm:mb-0 flex space-x-3 rtl:space-x-reverse">
-                        Dashboard
-                      </h4>
-                      <p style={{ color: "#8e8e8e" }}>
-                        Hii, {name}. Welcome back to GET.
-                      </p>
-                    </div>
-                    <div>
-                      <p>Profile Progress: {percentageComplete}%</p>
-                      <div className="progress-bar">
-                        <div
-                          className="progress-bar-fill"
-                          style={{ width: `${percentageComplete}%` }}
+                  <>
+                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                      <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        variant="scrollable"
+                        aria-label="scrollable auto tabs example"
+                        sx={{
+                          "& .MuiTabs-indicator": {
+                            bgcolor:
+                              value === 0
+                                ? "#EC6E46"
+                                : value === 1
+                                ? "#EC6E46"
+                                : value === 2
+                                ? "#EC6E46"
+                                : "#000",
+                          },
+                        }}
+                      >
+                        <Tab
+                          label="Today"
+                          style={{ color: value === 0 ? "#EC6E46" : "#000" }}
                         />
-                      </div>
-                      {/* Render your profile fields here */}
-                    </div>
-                  </div>
-                  <div class="grid grid-cols-12 gap-5 mb-5">
-                 
-                    <div class="2xl:col-span-3 lg:col-span-4 col-span-12">
-                      <div class="bg-no-repeat bg-cover bg-center p-4 rounded-[6px] relative">
-                        <img
-                          src={background}
-                          alt="background"
-                          style={{ position: "relative", width: "100%" }}
+                        <Tab
+                          label="All"
+                          style={{ color: value === 1 ? "#EC6E46" : "#000" }}
                         />
-                        <div
-                          class="max-w-[180px]"
-                          style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "40%",
-                            transform: "translate(-50%, -50%)",
-                            zIndex: "1",
-                            flexDirection: "row",
-                            position: "absolute",
-                          }}
-                        >
-                         
-                          {/* <div class="text-xl font-medium text-slate-900 mb-2">
-                            Raise Fund for your Education
-                          </div> */}
-                        
-                        </div>
-                      </div>
-                    </div>
-                    <div class="2xl:col-span-9 lg:col-span-8 col-span-12">
-                      <div class="p-4 card">
-                        <div class="grid md:grid-cols-3 col-span-1 gap-4">
-                          {/* <!-- BEGIN: Group Chart2 --> */}
-
-                          <div class="py-[18px] px-4 rounded-[6px] bg-[#E5F9FF] dark:bg-slate-900	 ">
-                            <div class="flex items-center space-x-6 rtl:space-x-reverse">
-                              <div class="flex-none">
-                                <div id="wline1"></div>
-                              </div>
-                              <div class="flex-1">
-                                <div class="text-slate-800 dark:text-slate-300 text-sm mb-1 font-medium">
-                                  Total Donation
-                                </div>
-                                <div class="text-slate-900 dark:text-white text-lg font-medium">
-                                  3,564
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="py-[18px] px-4 rounded-[6px] bg-[#FFEDE5] dark:bg-slate-900	 ">
-                            <div class="flex items-center space-x-6 rtl:space-x-reverse">
-                              <div class="flex-none">
-                                <div id="wline2"></div>
-                              </div>
-                              <div class="flex-1">
-                                <div class="text-slate-800 dark:text-slate-300 text-sm mb-1 font-medium">
-                                  Total Students
-                                </div>
-                                <div class="text-slate-900 dark:text-white text-lg font-medium">
-                                  564
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="py-[18px] px-4 rounded-[6px] bg-[#EAE5FF] dark:bg-slate-900	 ">
-                            <div class="flex items-center space-x-6 rtl:space-x-reverse">
-                              <div class="flex-none">
-                                <div id="wline3"></div>
-                              </div>
-                              <div class="flex-1">
-                                <div class="text-slate-800 dark:text-slate-300 text-sm mb-1 font-medium">
-                                  Pending
-                                </div>
-                                <div class="text-slate-900 dark:text-white text-lg font-medium">
-                                  +5.0%
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* <!-- END: Group Chart2 --> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      </Tabs>
+                    </Box>
+                    <TabPanel value={value} index={0}>
+                      <All />
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                      <Today />
+                    </TabPanel>
+                  </>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* <!-- BEGIN: Footer For Desktop and tab -->
-      <footer id="footer">
-        <div class="site-footer px-6 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-300 py-4 ltr:ml-[248px] rtl:mr-[248px]">
-          <div class="grid md:grid-cols-2 grid-cols-1 md:gap-5">
-            <div class="text-center ltr:md:text-start rtl:md:text-right text-sm">
-              COPYRIGHT ©
-              <span id="thisYear"></span>
-              DashCode, All rights Reserved
-            </div>
-            <div class="ltr:md:text-right rtl:md:text-end text-center text-sm">
-              Hand-crafted &amp; Made by
-              <a href="https://codeshaper.net/" target="_blank" class="text-primary-500 font-semibold">
-                Codeshaper
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <!-- END: Footer For Desktop and tab -->
-      <div class="bg-white bg-no-repeat custom-dropshadow footer-bg dark:bg-slate-700 flex justify-around items-center
-    backdrop-filter backdrop-blur-[40px] fixed left-0 bottom-0 w-full z-[9999] bothrefm-0 py-[12px] px-4 md:hidden">
-        <a href="chat.html">
-          <div>
-            <span class="relative cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center mb-1 dark:text-white
-          text-slate-900 ">
-        <iconify-icon icon="heroicons-outline:mail"></iconify-icon>
-        <span class="absolute right-[5px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
-            justify-center rounded-full text-white z-[99]">
-          10
-        </span>
-            </span>
-            <span class="block text-[11px] text-slate-600 dark:text-slate-300">
-        Messages
-      </span>
-          </div>
-        </a>
-        <a href="profile.html" class="relative bg-white bg-no-repeat backdrop-filter backdrop-blur-[40px] rounded-full footer-bg dark:bg-slate-700
-      h-[65px] w-[65px] z-[-1] -mt-[40px] flex justify-center items-center">
-          <div class="h-[50px] w-[50px] rounded-full relative left-[0px] hrefp-[0px] custom-dropshadow">
-            <img src="assets/images/users/user-1.jpg" alt="" class="w-full h-full rounded-full border-2 border-slate-100">
-          </div>
-        </a>
-        <a href="#">
-          <div>
-            <span class=" relative cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center mb-1 dark:text-white
-          text-slate-900">
-        <iconify-icon icon="heroicons-outline:bell"></iconify-icon>
-        <span class="absolute right-[17px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
-            justify-center rounded-full text-white z-[99]">
-          2
-        </span>
-            </span>
-            <span class=" block text-[11px] text-slate-600 dark:text-slate-300">
-        Notifications
-      </span>
-          </div>
-        </a>
-      </div> */}
       </div>
     </>
   );
 };
 
-export default Layout;
+export default Donated;

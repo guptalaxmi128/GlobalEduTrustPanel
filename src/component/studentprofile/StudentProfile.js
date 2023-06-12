@@ -1,23 +1,33 @@
-import React , {useState} from 'react';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import React, { useState } from "react";
+import CreateRoundedIcon from "@mui/icons-material/CreateRounded";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import SearchIcon from "@mui/icons-material/Search";
-import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Sidebar from '../sidebar/Sidebar';
+import LogoutIcon from "@mui/icons-material/Logout";
+import Sidebar from "../sidebar/Sidebar";
 import user from "../../assets/images/user/user-1.jpg";
+import qrCode from "../../assets/qrCode.png";
 
-const Course = () => {
+const StudentProfile = () => {
+  const [dateOfBirth, setDateOfBirth] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-    return (
-        <>
-        <Sidebar />
-        <div className="flex flex-col justify-between min-h-screen" style={{marginLeft:'248px'}}>
+  const handleDateOfBirthChange = (date) => {
+    setDateOfBirth(date[0]);
+  };
+  return (
+    <>
+      <Sidebar />
+      <div
+        className="flex flex-col justify-between min-h-screen"
+        style={{ marginLeft: "248px" }}
+      >
         <div>
           {/* <!-- BEGIN: Header --> */}
           {/* <!-- BEGIN: Header --> */}
@@ -177,7 +187,9 @@ const Course = () => {
                               >
                                 {" "}
                               </iconify-icon>
-                              <span className="leading-[1]">Project Dashboard</span>
+                              <span className="leading-[1]">
+                                Project Dashboard
+                              </span>
                             </div>
                           </a>
                         </li>
@@ -205,7 +217,9 @@ const Course = () => {
                               >
                                 {" "}
                               </iconify-icon>
-                              <span className="leading-[1]">Banking Dashboard</span>
+                              <span className="leading-[1]">
+                                Banking Dashboard
+                              </span>
                             </div>
                           </a>
                         </li>
@@ -902,7 +916,9 @@ const Course = () => {
                               >
                                 {" "}
                               </iconify-icon>
-                              <span className="leading-[1]">Advanced table</span>
+                              <span className="leading-[1]">
+                                Advanced table
+                              </span>
                             </div>
                           </a>
                         </li>
@@ -1138,7 +1154,7 @@ const Course = () => {
                         />
                       </div>
                       <span className="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">
-                        Albert Flores
+                        Ram Gupta
                       </span>
                       {/*   <svg
                         className="w-[16px] h-[16px] dark:text-white hidden lg:inline-block text-base inline-block ml-[10px] rtl:mr-[10px]"
@@ -1162,89 +1178,11 @@ const Course = () => {
                     {/* <!-- Dropdown menu --> */}
                     {isDropdownOpen && (
                       <div
-                        className="dropdown-menu z-10  bg-white divide-y divide-slate-100 shadow w-44 dark:bg-slate-800 border dark:border-slate-700 !top-[23px] rounded-md
-      overflow-hidden
+                        className="dropdown-menu z-10  bg-white divide-y divide-slate-100 shadow w-44 dark:bg-slate-800 border dark:border-slate-700 top-[23px] rounded-md
+      overflow-hidden absolute
       "
                       >
                         <ul className="py-1 text-sm text-slate-800 dark:text-slate-200">
-                          <li>
-                            <a
-                              href="/"
-                              className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal"
-                            >
-                              {/* <iconify-icon
-                              icon="heroicons-outline:user"
-                              className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
-                            ></iconify-icon> */}
-                              <span className="font-Inter">Dashboard</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal"
-                            >
-                              {/* <iconify-icon
-                              icon="heroicons-outline:chat"
-                              className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
-                            ></iconify-icon> */}
-                              <span className="font-Inter">Course Details</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal"
-                            >
-                              {/* <iconify-icon
-                              icon="heroicons-outline:mail"
-                              className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
-                            ></iconify-icon> */}
-                              <span className="font-Inter">Account Details</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal"
-                            >
-                              {/* <iconify-icon
-                              icon="heroicons-outline:clipboard-check"
-                              className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
-                            ></iconify-icon> */}
-                              <span className="font-Inter">Wallet</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal"
-                            >
-                              {/* <iconify-icon
-                              icon="heroicons-outline:cog"
-                              className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
-                            ></iconify-icon> */}
-                              <span className="font-Inter">Profile</span>
-                            </a>
-                          </li>
-                          {/* <li>
-                          <a
-                            href="pricing.html"
-                            className="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-600 dark:hover:text-white font-inter text-sm text-slate-600
-            dark:text-white font-normal"
-                          >
-                            <iconify-icon
-                              icon="heroicons-outline:credit-card"
-                              className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
-                            ></iconify-icon>
-                            <span className="font-Inter">Price</span>
-                          </a>
-                        </li> */}
                           <li>
                             <a
                               href="#"
@@ -1255,6 +1193,8 @@ const Course = () => {
                               icon="heroicons-outline:login"
                               className="relative top-[2px] text-lg ltr:mr-1 rtl:ml-1"
                             ></iconify-icon> */}
+                              <LogoutIcon style={{ fontSize: "medium" }} />{" "}
+                              &nbsp;
                               <span className="font-Inter">Logout</span>
                             </a>
                           </li>
@@ -1305,174 +1245,170 @@ const Course = () => {
           {/* <!-- END: Search Modal --> */}
           {/* <!-- END: Header --> */}
           {/* <!-- END: Header --> */}
-
-        {/* <!-- BEGIN: Breadcrumb --> */}
-              <div className="mb-5" >
-                <ul className="m-0 p-0 list-none">
-                  <li className="inline-block relative top-[3px] text-base text-primary-500 font-Inter ">
-                    <a href="/">
-                    <HomeRoundedIcon  style={{marginLeft:5}}/>
-                      <KeyboardArrowRightRoundedIcon  />
-                    </a>
-                  </li>
-                  <li className="inline-block relative text-sm text-primary-500 font-Inter pt-3 ">
-                    Utility
-                    <KeyboardArrowRightRoundedIcon  />
-                  </li>
-                  <li className="inline-block relative text-sm text-slate-500 font-Inter dark:text-white pt-3">
-                    Course</li>
-                </ul>
-              </div>
-              {/* <!-- END: BreadCrumb --> */}
-
-
-              <div className=" space-y-5" >
-                <div className="card">
-                  <header className="card-header">
-                    <div className="card-title">Packages</div>
-                  </header>
-                  <div className="card-body p-6">
-                    <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
-
-                      <div className="price-table bg-opacity-[0.16] dark:bg-opacity-[0.36] rounded-[6px] p-6 text-slate-900 dark:text-white relative
-                overflow-hidden z-[1] bg-warning-500">
-                        <div className="overlay absolute right-0 top-0 w-full h-full z-[-1]">
-                          <img src="assets/images/all-img/big-shap1.png" alt="" className="ml-auto block" /> 
-                        </div>
-
-                        <header className="mb-6">
-                          <h4 className="text-xl mb-5">Advanced</h4>
-                          <div className="space-x-4 relative flex items-center mb-5 rtl:space-x-reverse">
-                            <span className="text-[32px] leading-10 font-medium">
-                    $96
-                  </span>
-                            <span className="text-xs text-warning-500 font-medium px-3 py-1 rounded-full inline-block bg-white uppercase h-auto">Save
-                    20%</span>
-                          </div>
-                          <p className="text-slate-500 dark:text-slate-300 text-sm">
-                            per user/month, annually
-                          </p>
-                        </header>
-                        <div className="price-body space-y-8">
-                          <p className="text-sm leading-5 text-slate-600 dark:text-slate-300">
-                            Designed for teams who need to manage complex workflows with more automation and integration.
-                          </p>
-                          <div>
-                            <button className="btn-outline-dark dark:border-slate-400 w-full btn">
-                              Buy now</button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="price-table bg-opacity-[0.16] dark:bg-opacity-[0.36] rounded-[6px] p-6 text-slate-900 dark:text-white relative
-                overflow-hidden z-[1] bg-info-500">
-                        <div className="overlay absolute right-0 top-0 w-full h-full z-[-1]">
-                          <img src="assets/images/all-img/big-shap2.png" alt="" className="ml-auto block" />
-                        </div>
-
-                        <div className="text-sm font-medium bg-slate-900 dark:bg-slate-900 text-white py-2 text-center absolute ltr:-right-[43px]
-                    rtl:-left-[43px] top-6 px-10 transform ltr:rotate-[45deg] rtl:-rotate-45">
-                          Most popular
-                        </div>
-
-                        <header className="mb-6">
-                          <h4 className="text-xl mb-5">Business</h4>
-                          <div className="space-x-4 relative flex items-center mb-5 rtl:space-x-reverse">
-                            <span className="text-[32px] leading-10 font-medium">
-                    $196
-                  </span>
-                            <span className="text-xs text-warning-500 font-medium px-3 py-1 rounded-full inline-block bg-white uppercase h-auto">Save
-                    20%</span>
-                          </div>
-                          <p className="text-slate-500 dark:text-slate-300 text-sm">
-                            per user/month, annually
-                          </p>
-                        </header>
-                        <div className="price-body space-y-8">
-                          <p className="text-sm leading-5 text-slate-600 dark:text-slate-300">
-                            Designed for teams who need to manage complex workflows with more automation and integration.
-                          </p>
-                          <div>
-                            <button className="btn-outline-dark dark:border-slate-400 w-full btn">
-                              Buy now</button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="price-table bg-opacity-[0.16] dark:bg-opacity-[0.36] rounded-[6px] p-6 text-slate-900 dark:text-white relative
-                overflow-hidden z-[1] bg-success-500">
-                        <div className="overlay absolute right-0 top-0 w-full h-full z-[-1]">
-                          <img src="assets/images/all-img/big-shap3.png" alt="" className="ml-auto block" />
-                        </div>
-
-                        <header className="mb-6">
-                          <h4 className="text-xl mb-5">Basic</h4>
-                          <div className="space-x-4 relative flex items-center mb-5 rtl:space-x-reverse">
-                            <span className="text-[32px] leading-10 font-medium">
-                    $26
-                  </span>
-                            <span className="text-xs text-warning-500 font-medium px-3 py-1 rounded-full inline-block bg-white uppercase h-auto">Save
-                    20%</span>
-                          </div>
-                          <p className="text-slate-500 dark:text-slate-300 text-sm">
-                            per user/month, annually
-                          </p>
-                        </header>
-                        <div className="price-body space-y-8">
-                          <p className="text-sm leading-5 text-slate-600 dark:text-slate-300">
-                            Designed for teams who need to manage complex workflows with more automation and integration.
-                          </p>
-                          <div>
-                            <button className="btn-outline-dark dark:border-slate-400 w-full btn">
-                              Try it free</button>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="price-table bg-opacity-[0.16] dark:bg-opacity-[0.36] rounded-[6px] p-6 text-slate-900 dark:text-white relative
-                overflow-hidden z-[1] bg-primary-500">
-                        <div className="overlay absolute right-0 top-0 w-full h-full z-[-1]">
-                          <img src="assets/images/all-img/big-shap4.png" alt="" className="ml-auto block" />
-                        </div>
-
-                        <header className="mb-6">
-                          <h4 className="text-xl mb-5">Got a large team?</h4>
-                          <div className="space-x-4 relative flex items-center mb-5 rtl:space-x-reverse">
-                            <span className="text-[32px] leading-10 font-medium">
-                    $126
-                  </span>
-                            <span className="text-xs text-warning-500 font-medium px-3 py-1 rounded-full inline-block bg-white uppercase h-auto">Save
-                    20%</span>
-                          </div>
-                          <p className="text-slate-500 dark:text-slate-300 text-sm">
-                            per user/month, annually
-                          </p>
-                        </header>
-                        <div className="price-body space-y-8">
-                          <p className="text-sm leading-5 text-slate-600 dark:text-slate-300">
-                            Designed for teams who need to manage complex workflows with more automation and integration.
-                          </p>
-                          <div>
-                            <button className="btn-outline-dark dark:border-slate-400 w-full btn">
-                              Request a quote</button>
-                          </div>
-                        </div>
-                      </div>
-
+          <div
+            class="content-wrapper transition-all duration-150 xl:ltr:ml-[248px]"
+            id="content_wrapper"
+            style={{ backgroundColor: "#F1F5F9" }}
+          >
+            <div class="page-content" >
+              <div id="content_layout" >
+                <div className="space-y-5 profile-page"
+                 
+                >
+                  <div
+                    className="profile-wrap px-[35px] pb-10 md:pt-[84px] pt-10 rounded-lg bg-white dark:bg-slate-800 lg:flex lg:space-y-0
+                space-y-6 justify-between items-end relative z-[1]"
+               
+                  >
+                    <div className="bg-slate-900 dark:bg-slate-700 absolute left-0 top-0 md:h-1/2 h-[150px] w-full z-[-1] rounded-t-lg">
+                      <img
+                        src={qrCode}
+                        alt="qrCode-image"
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          marginTop: "30px",
+                          marginLeft: "925px",
+                          backgroundColor:'#fff'
+                        }}
+                      />
                     </div>
+                    <div className="profile-box flex-none md:text-start text-center">
+                      <div className="md:flex items-end md:space-x-6 rtl:space-x-reverse">
+                        <div className="flex-none">
+                          <div
+                            className="md:h-[186px] md:w-[186px] h-[140px] w-[140px] md:ml-0 md:mr-0 ml-auto mr-auto md:mb-0 mb-4 rounded-full ring-4
+                                ring-slate-100 relative"
+                          >
+                            <img
+                              src={user}
+                              alt=""
+                              className="w-full h-full object-cover rounded-full"
+                            />
+                            <a
+                              href="profile-setting.html"
+                              className="absolute right-2 h-8 w-8 bg-slate-50 text-slate-600 rounded-full shadow-sm flex flex-col items-center
+                                    justify-center md:top-[140px] top-[100px]"
+                            >
+                              {/* <iconify-icon icon="heroicons:pencil-square"></iconify-icon> */}
+                              <CreateRoundedIcon />
+                            </a>
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-2xl font-medium text-slate-900 dark:text-slate-200 mb-[3px]">
+                            Ram Gupta
+                          </div>
+                          <div className="text-sm font-light text-slate-600 dark:text-slate-400">
+                            Front End Developer
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <!-- end profile box --> */}
+                    <div className="profile-info-500 md:flex md:text-start text-center flex-1 max-w-[516px] md:space-y-0 space-y-4">
+                      <div className="flex-1 ">
+                        <div className="text-base text-slate-900 dark:text-slate-300 font-medium mb-1 mt-3 ">
+                          Current Course
+                        </div>
+                        <div className="text-sm text-slate-600 font-light dark:text-slate-300 ">
+                          B.Tech
+                        </div>
+                      </div>
+                      {/* <!-- end single --> */}
+                      <div className="flex-1">
+                        <div className="text-base text-slate-900 dark:text-slate-300 font-medium mb-1 mt-3">
+                          UID
+                        </div>
+                        <div className="text-sm text-slate-600 font-light dark:text-slate-300">
+                        GET23051000
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                      <div
+                          className="inline-block px-3 min-w-[120px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 text-warning-500
+        bg-warning-500 mt-3" 
+                        >
+                          Donate Now
+                        </div>
+                      </div>
+                    </div>
+                    {/* <img src={qrCode} alt="qrCode-image" style={{width:'100px' ,height:'100px',marginTop:'auto'}} /> */}
+                    {/* <!-- profile info-500 --> */}
+                  </div>
+                  <div className="grid grid-cols-12 gap-6">
+                    <div className="lg:col-span-4 col-span-12">
+                      <div className="card h-full">
+                        <header className="card-header">
+                          <h4 className="card-title">Info</h4>
+                        </header>
+                        <div className="card-body p-6">
+                          <ul className="list space-y-8">
+                            <li className="flex space-x-3 rtl:space-x-reverse">
+                              <div className="flex-none text-2xl text-slate-600 dark:text-slate-300">
+                                <iconify-icon icon="heroicons:envelope"></iconify-icon>
+                              </div>
+                              <div className="flex-1">
+                                <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
+                                  EMAIL
+                                </div>
+                                <a
+                                  href="mailto:someone@example.com"
+                                  className="text-base text-slate-600 dark:text-slate-50"
+                                >
+                                  info-example@email.com
+                                </a>
+                              </div>
+                            </li>
+                            {/* <!-- end single list --> */}
+                            <li className="flex space-x-3 rtl:space-x-reverse">
+                              <div className="flex-none text-2xl text-slate-600 dark:text-slate-300">
+                                <iconify-icon icon="heroicons:phone-arrow-up-right"></iconify-icon>
+                              </div>
+                              <div className="flex-1">
+                                <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
+                                  PHONE
+                                </div>
+                                <a
+                                  href="#"
+                                  className="text-base text-slate-600 dark:text-slate-50"
+                                >
+                                  +919540478632
+                                </a>
+                              </div>
+                            </li>
+                            {/* <!-- end single list --> */}
+                            <li className="flex space-x-3 rtl:space-x-reverse">
+                              <div className="flex-none text-2xl text-slate-600 dark:text-slate-300">
+                                <iconify-icon icon="heroicons:map"></iconify-icon>
+                              </div>
+                              <div className="flex-1">
+                                <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
+                                  LOCATION
+                                </div>
+                                <div className="text-base text-slate-600 dark:text-slate-50">
+                                  #K-60, GF, RHS, JUNGPURA EXT.,
+                                  <br />
+                                  NEW DELHI - 110014
+                                </div>
+                              </div>
+                            </li>
+                            {/* <!-- end single list --> */}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  
                   </div>
                 </div>
-               </div>
-
-
-
-               </div>
-                
+               
               </div>
-        </>
-    );
-}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
-
-
-export default Course;
+export default StudentProfile;
